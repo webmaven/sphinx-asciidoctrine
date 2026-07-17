@@ -1,0 +1,94 @@
+= Sphinx AsciiDoc Extension
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: pygments
+
+image:https://img.shields.io/pypi/v/sphinx-asciidoctrine.svg["PyPI Version", link="https://pypi.org/project/sphinx-asciidoctrine"]
+image:https://img.shields.io/pypi/pyversions/sphinx-asciidoctrine.svg["Python Versions"]
+image:https://img.shields.io/github/license/webmaven/sphinx-asciidoctrine.svg["License", link="https://github.com/webmaven/sphinx-asciidoctrine/blob/main/LICENSE"]
+image:https://img.shields.io/badge/code%20style-ruff-000000.svg["Ruff", link="https://github.com/astral-sh/ruff"]
+
+A modern, highly conforming Sphinx extension providing comprehensive AsciiDoc support. Powered by the Lark-based `asciidoctrine` parser and compliant with the Eclipse AsciiDoc ASG specification.
+
+== Features
+
+* *Full-Fidelity Parsing*: Seamlessly compiles `.adoc` and `.asciidoc` files into standard Docutils nodes.
+* *Interactive Autodoc Processing*: Dynamically parses and translates AsciiDoc syntax inside Python docstrings for `sphinx.ext.autodoc` pipelines.
+* *Static Analysis Friendly*: Exposes a native Docutils parser designed for modern static analysis pipelines like `sphinx-autodoc2`.
+* *Optimized for Parallelism*: Fully safe and optimized for Sphinx parallel read and write documentation builds.
+* *Robust Fault Tolerance*: Gracefully captures and lists docstring formatting syntax errors inline inside the rendered document without crashing your build.
+
+== Installation
+
+To install from PyPI:
+
+[source,bash]
+----
+pip install sphinx-asciidoctrine
+----
+
+== Usage
+
+Add `sphinx_asciidoctrine` to the `extensions` list in your Sphinx project's `conf.py` file:
+
+[source,python]
+----
+extensions = [
+    "sphinx_asciidoctrine",
+    "sphinx.ext.autodoc",
+]
+----
+
+=== Toggling Docstring Processing
+
+[NOTE]
+====
+By default, this extension will automatically process all Python docstrings as AsciiDoc and compile them to reStructuredText (reST) during standard autodoc build phases.
+====
+
+If your project utilizes AsciiDoc for main documentation files but uses standard reST or Markdown within Python docstrings, you can easily disable automatic docstring translation by setting `asciidoc_process_docstrings` to `False` in your `conf.py`:
+
+[source,python]
+----
+# Disable automatic AsciiDoc processing for Python docstrings
+asciidoc_process_docstrings = False
+----
+
+=== Static Analysis with `sphinx-autodoc2`
+
+To document your project using the static analyzer `sphinx-autodoc2` with AsciiDoc docstrings, configure your `conf.py` as follows:
+
+[source,python]
+----
+extensions = [
+    "autodoc2",
+    "sphinx_asciidoctrine",
+]
+
+autodoc2_packages = [
+    "../src/my_package",
+]
+
+autodoc2_docstring_parser_regexes = [
+    (r".*", "sphinx_asciidoctrine.parser"),
+]
+----
+
+== Interactive Examples
+
+The following interactive code example is verified automatically as a doctest using `asciidoctest`:
+
+[source,python]
+----
+>>> from sphinx_asciidoctrine import setup
+>>> result = setup(None)
+>>> isinstance(result, dict)
+True
+>>> result["parallel_read_safe"]
+True
+----
+
+== License
+
+This project is licensed under the Apache Software License, Version 2.0. For more details, see the link:LICENSE[LICENSE] file.

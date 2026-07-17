@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sphinx-asciidoctrine"
+version = "0.1.0a1"
+authors = [
+  { name = "Michael R. Bernstein", email = "zopemaven@gmail.com" },
+]
+description = "A Sphinx extension providing AsciiDoc support using AsciiDoctrine."
+readme = { file = "README.adoc", content-type = "text/plain" }
+requires-python = ">=3.14"
+classifiers = [
+    "Framework :: Sphinx :: Extension",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Text Processing :: Markup",
+]
+dependencies = [
+    "sphinx>=7.0",
+    "asciidoctrine>=0.1.0a8",
+    "asciidocstring>=0.1.0a4",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+    "asciidoctest>=0.2.0a1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+norecursedirs = ["venv", ".git"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+exclude = ["venv", ".git"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+packages = ["sphinx_asciidoctrine"]
+mypy_path = "src"
+ignore_missing_imports = true

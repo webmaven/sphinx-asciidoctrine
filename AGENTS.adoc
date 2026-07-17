@@ -1,0 +1,121 @@
+= sphinx-asciidoctrine Developer & Agent Guide
+:toc: left
+:toclevels: 3
+:icons: font
+:source-highlighter: pygments
+
+This document provides a comprehensive technical overview of the `sphinx-asciidoctrine` plugin, including setup instructions, architectural design, testing methodologies, and maintainer guidelines.
+
+== Introduction & Purpose
+
+`sphinx-asciidoctrine` is a dedicated Sphinx extension that provides comprehensive AsciiDoc formatting support using the pure-Python `asciidoctrine` parser. It is designed to act as a seamless bridge between AsciiDoc markup and the Docutils/Sphinx standard node structures.
+
+In addition to serving as a general Sphinx source parser, this plugin provides automatic API documentation capabilities for AsciiDoc docstrings in both standard Sphinx `autodoc` pipelines and static analyzers like `sphinx-autodoc2`.
+
+== Project Architecture
+
+The plugin is structured as an independent, lightweight Python package:
+
+[cols="1,3"]
+|===
+| Path | Description
+
+| `src/sphinx_asciidoctrine/__init__.py`
+| Primary package entry point. Implements standard Sphinx suffix registrations, the `AsciiDocParser` class, and the `process_docstring` event hook.
+
+| `src/sphinx_asciidoctrine/parser.py`
+| Extension module supporting `sphinx-autodoc2` via a specialized `Parser` subclass.
+
+| `tests/`
+| Comprehensive multi-tiered testing suite directory.
+|===
+
+=== Key Components
+
+==== 1. `AsciiDocParser` (Source Parser)
+Inherits from `sphinx.parsers.Parser` (which derives from `docutils.parsers.Parser`). It translates physical `.adoc` or `.asciidoc` files into an AST using `asciidoctrine.parse_to_ast`, and then uses `DocutilsRenderer` to populate the Sphinx target document with standard Docutils nodes.
+
+==== 2. `process_docstring` (Autodoc Hook)
+Connected to Sphinx's `autodoc-process-docstring` event. When Sphinx compiles inline Python docstrings:
+1. It intercepts the raw docstring line list.
+2. Combines them into a single raw text block.
+3. Translates the AsciiDoc content into standard reStructuredText (reST) in-place using the `asciidocstring` semantic compiler.
+4. Splits the reST block back into lines, updating the docstring lines list in-place so that autodoc continues processing them seamlessly.
+
+==== 3. `sphinx-autodoc2` Static Parser mapping
+To support non-import, static-analysis docstring generation (preferred by frameworks like `sphinx-autodoc2`), `sphinx_asciidoctrine.parser.Parser` overrides the standard docstring parsing workflow to compile AsciiDoc directly into Docutils target node structures.
+
+== Setup & Local Development
+
+The project is designed to be developed using a standalone virtual environment (`venv`) created directly inside this repository.
+
+=== Installation
+To install the plugin in editable development mode alongside all unit, functional, and integration testing dependencies:
+
+[source,bash]
+----
+# Run from within the sphinx-asciidoctrine workspace root
+venv/bin/pip install -e ".[test]"
+----
+
+== Testing Protocols
+
+To maintain maximum code quality and prevent regression, the project implements a rigorous **four-tiered testing pyramid**. All testing commands should be run using the local virtual environment.
+
+=== 1. Tier 1: Unit Tests
+Focuses on fast, isolated verification of extension registrations, event hook setups, mock translation mappings, and exception propagation.
+[source,bash]
+----
+venv/bin/pytest tests/test_unit.py -v
+----
+
+=== 2. Tier 2: Integration Tests
+Programmatically initializes in-memory Sphinx applications to verify document tree rendering, output file creation, and class-level method listings without subprocess overhead.
+[source,bash]
+----
+venv/bin/pytest tests/test_integration.py -v
+----
+
+=== 3. Tier 3: Functional Tests
+Compiles actual, fully featured Python modules into physical HTML using both `sphinx.ext.autodoc` and `sphinx-autodoc2`, and asserts on structural HTML content elements.
+[source,bash]
+----
+venv/bin/pytest tests/test_functional.py -v
+----
+
+=== 4. Tier 4: End-to-End (E2E) Tests
+Triggers standalone command-line `sphinx-build` processes on physical, mock Sphinx repositories to verify exit codes, directory output states, and standard tool-chain behavior.
+[source,bash]
+----
+venv/bin/pytest tests/test_e2e.py -v
+----
+
+== Key Design Learnings & Maintainer Guidelines
+
+=== HTML Assertion & Pygments Highlighting
+[WARNING]
+====
+When verifying functional HTML content inside `test_functional.py` and `test_integration.py`, do NOT assert on contiguous code snippets containing multiple language tokens (e.g. `Calculator()` or `helper.add(1, 2)`).
+====
+
+Sphinx applies standard `Pygments` highlighting to all code block nodes during compilation. This inserts styling tags between syntax tokens (e.g. `<span class="n">Calculator</span><span class="p">()</span>`). Always assert on plain, individual syntactic tokens (like `"Calculator"`, `"subtract"`, or `"add"`) instead.
+
+=== Non-Blocking Error Handling in Docstrings
+To prevent single typos in Python docstrings from crashing a developer's entire Sphinx build, the `process_docstring` hook catches all parser translation exceptions gracefully. It appends a standard, visible reST error directive block (`.. error::`) to the end of the docstring content, logging the error clearly within the compiled documentation so the user can easily locate and fix the issue.
+
+=== Toggling Docstring Processing
+If a Sphinx project uses AsciiDoc for its main documentation files, but the documented Python package itself has standard reStructuredText (reST) or Markdown docstrings rather than AsciiDoc docstrings, the automatic docstring translation hook can be toggled off.
+
+Users can add the following configuration setting to their `conf.py`:
+
+[source,python]
+----
+asciidoc_process_docstrings = False
+----
+
+When set to `False`, the extension skips connecting the `autodoc-process-docstring` hook entirely, preventing reST docstrings from being parsed as AsciiDoc.
+
+=== Upstream Relationships
+This plugin depends strictly on two companion packages:
+1. `webmaven/asciidoctrine`: The core Lark-based Earley parser.
+2. `webmaven/asciidocstring`: The semantic docstring compiler translating AsciiDoc docstrings to reST.
