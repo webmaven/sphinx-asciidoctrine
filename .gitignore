@@ -30,3 +30,7 @@ htmlcov/
 
 # OS-specific metadata
 .DS_Store
+
+# Documentation build output and generated API references
+docs/_build/
+docs/apidocs/

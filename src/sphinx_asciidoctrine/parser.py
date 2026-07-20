@@ -1,6 +1,5 @@
 from typing import Any
 
-import asciidocstring
 from docutils.parsers import Parser as DocutilsParser
 from docutils.parsers.rst import Parser as RstParser
 
@@ -16,7 +15,15 @@ class Parser(DocutilsParser):  # type: ignore[misc]
 
     def parse(self, inputstring: str, document: Any) -> None:
         try:
+            import asciidocstring
+
             rst_text = asciidocstring.parse(inputstring).to_rest()
+        except ImportError:
+            # Fallback gracefully with a warning block if asciidocstring is not installed
+            rst_text = (
+                ".. warning:: AsciiDoc translation not available (asciidocstring is not installed).\n\n"
+                + inputstring
+            )
         except Exception as e:
             # Append error block or fallback to original text
             rst_text = f".. error:: AsciiDoc Docstring Error: {e}\n\n" + inputstring

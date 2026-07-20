@@ -21,7 +21,7 @@ classifiers = [
 ]
 dependencies = [
     "sphinx>=7.0",
-    "asciidoctrine>=0.1.0a8",
+    "asciidoctrine>=0.1.0a9",
     "asciidocstring>=0.1.0a4",
 ]
 
@@ -32,6 +32,10 @@ test = [
     "ruff",
     "mypy",
     "asciidoctest>=0.2.0a1",
+]
+docs = [
+    "sphinx-rtd-theme",
+    "sphinx-autodoc2",
 ]
 
 [tool.pytest.ini_options]
