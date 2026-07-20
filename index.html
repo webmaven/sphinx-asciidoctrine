@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sphinx AsciiDoctrine Documentation &mdash; Sphinx AsciiDoctrine 0.1.0a1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=1da06fa4" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=49b5e7b8"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="apidocs/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            Sphinx AsciiDoctrine
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="apidocs/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Sphinx AsciiDoctrine</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sphinx AsciiDoctrine Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.adoc.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>Sphinx AsciiDoctrine Documentation<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p>Welcome to the official documentation for <strong>Sphinx AsciiDoctrine</strong>, a high-fidelity Sphinx extension designed to parse and compile AsciiDoc files natively within the Python and Docutils/Sphinx documentation ecosystems.</p>
+<p><code class="docutils literal notranslate"><span class="pre">sphinx-asciidoctrine</span></code> compiles your AsciiDoc documentation files into standard Docutils nodes and translates Python docstrings written in AsciiDoc directly into standard Sphinx-friendly reStructuredText on-the-fly.</p>
+<hr class="docutils" />
+<section id="id2">
+<h2>Features<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Native AsciiDoc Parser</strong>: Registers <code class="docutils literal notranslate"><span class="pre">.adoc</span></code> and <code class="docutils literal notranslate"><span class="pre">.asciidoc</span></code> files directly with Sphinx so you can author documentation in standard AsciiDoc.</p></li>
+<li><p><strong>Seamless autodoc &amp; autodoc2 Integration</strong>: Enables automatic extraction and translation of AsciiDoc docstrings from Python modules into beautifully-formatted API documentation.</p></li>
+<li><p><strong>Robust AST Transformation</strong>: Utilizes <code class="docutils literal notranslate"><span class="pre">asciidoctrine</span></code>’s Lark-based Earley parsing pipeline to translate AsciiDoc structures into accurate, type-safe Docutils components.</p></li>
+<li><p><strong>Zero Legacy Workarounds</strong>: Features automatic resolution of description list definitions and consecutive block attributes out-of-the-box.</p></li>
+</ul>
+<p>This documentation site is itself authored in AsciiDoc, utilizing <code class="docutils literal notranslate"><span class="pre">sphinx-asciidoctrine</span></code> to parse its own source and <code class="docutils literal notranslate"><span class="pre">sphinx-autodoc2</span></code> to generate its own API reference!</p>
+</section>
+<hr class="docutils" />
+<section id="id3">
+<h2>Installation &amp; Setup<a class="headerlink" href="#id3" title="Link to this heading"></a></h2>
+<p>Install the package alongside your documentation toolchain using <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">asciidoctrine</span>
+</pre></div>
+</div>
+<p>Include the <code class="docutils literal notranslate"><span class="pre">[docs]</span></code> extra to install standard layout engines and themes (<code class="docutils literal notranslate"><span class="pre">sphinx-rtd-theme</span></code>, <code class="docutils literal notranslate"><span class="pre">sphinx-autodoc2</span></code>):</p>
+<div class="bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sphinx</span><span class="o">-</span><span class="n">asciidoctrine</span><span class="p">[</span><span class="n">docs</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id4">
+<h2>Quick Start<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<p>To enable AsciiDoc parsing in your Sphinx project, add <code class="docutils literal notranslate"><span class="pre">sphinx_asciidoctrine</span></code> to the <code class="docutils literal notranslate"><span class="pre">extensions</span></code> list in your <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>:</p>
+<div class="python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># conf.py</span>
+
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;sphinx_asciidoctrine&quot;</span><span class="p">,</span>
+    <span class="c1"># any other Sphinx extensions...</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>Once added, any <code class="docutils literal notranslate"><span class="pre">.adoc</span></code> or <code class="docutils literal notranslate"><span class="pre">.asciidoc</span></code> files in your source directories will automatically be discovered, parsed as AsciiDoc, and built into your output site!</p>
+</section>
+<hr class="docutils" />
+<section id="id5">
+<h2>Autodoc Docstring Processing<a class="headerlink" href="#id5" title="Link to this heading"></a></h2>
+<p>The extension can automatically parse docstrings in Python modules written in AsciiDoc.</p>
+<p>To enable or disable autodoc docstring parsing globally, use the <code class="docutils literal notranslate"><span class="pre">asciidoc_process_docstrings</span></code> option:</p>
+<div class="python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># conf.py</span>
+
+<span class="c1"># Enable or disable AsciiDoc docstring processing (default is True)</span>
+<span class="n">asciidoc_process_docstrings</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>If you are using <code class="docutils literal notranslate"><span class="pre">sphinx-autodoc2</span></code> to document your package APIs, you can map the parser specifically for Python docstrings:</p>
+<div class="python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># conf.py</span>
+
+<span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;sphinx_asciidoctrine&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;autodoc2&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">autodoc2_packages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;../src/my_package&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">autodoc2_docstring_parser_regexes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="sa">r</span><span class="s2">&quot;.*&quot;</span><span class="p">,</span> <span class="s2">&quot;sphinx_asciidoctrine.parser&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="id6">
+<h2>API Reference<a class="headerlink" href="#id6" title="Link to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">sphinx-autodoc2</span></code> is enabled, the complete generated package API module index is available under the <code class="docutils literal notranslate"><span class="pre">apidocs/index</span></code> namespace.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="apidocs/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Michael R. Bernstein.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

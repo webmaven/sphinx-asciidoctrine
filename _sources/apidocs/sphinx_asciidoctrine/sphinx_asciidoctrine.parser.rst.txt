@@ -1,0 +1,45 @@
+:py:mod:`sphinx_asciidoctrine.parser`
+=====================================
+
+.. py:module:: sphinx_asciidoctrine.parser
+
+.. autodoc2-docstring:: sphinx_asciidoctrine.parser
+   :parser: sphinx_asciidoctrine.parser
+   :allowtitles:
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. list-table::
+   :class: autosummary longtable
+   :align: left
+
+   * - :py:obj:`Parser <sphinx_asciidoctrine.parser.Parser>`
+     - .. autodoc2-docstring:: sphinx_asciidoctrine.parser.Parser
+          :parser: sphinx_asciidoctrine.parser
+          :summary:
+
+API
+~~~
+
+.. py:class:: Parser
+   :canonical: sphinx_asciidoctrine.parser.Parser
+
+   Bases: :py:obj:`docutils.parsers.Parser`
+
+   .. autodoc2-docstring:: sphinx_asciidoctrine.parser.Parser
+      :parser: sphinx_asciidoctrine.parser
+
+   .. py:attribute:: supported
+      :canonical: sphinx_asciidoctrine.parser.Parser.supported
+      :type: tuple[str, ...]
+      :value: ('asciidoc', 'adoc')
+
+      .. autodoc2-docstring:: sphinx_asciidoctrine.parser.Parser.supported
+         :parser: sphinx_asciidoctrine.parser
+
+   .. py:method:: parse(inputstring: str, document: typing.Any) -> None
+      :canonical: sphinx_asciidoctrine.parser.Parser.parse

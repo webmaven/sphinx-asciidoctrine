@@ -1,0 +1,104 @@
+= Sphinx AsciiDoctrine Documentation
+Michael R. Bernstein <zopemaven@gmail.com>
+v0.1.0a1
+
+Welcome to the official documentation for *Sphinx AsciiDoctrine*, a high-fidelity Sphinx extension designed to parse and compile AsciiDoc files natively within the Python and Docutils/Sphinx documentation ecosystems.
+
+`sphinx-asciidoctrine` compiles your AsciiDoc documentation files into standard Docutils nodes and translates Python docstrings written in AsciiDoc directly into standard Sphinx-friendly reStructuredText on-the-fly.
+
+---
+
+== Features
+
+* *Native AsciiDoc Parser*: Registers `.adoc` and `.asciidoc` files directly with Sphinx so you can author documentation in standard AsciiDoc.
+* *Seamless autodoc & autodoc2 Integration*: Enables automatic extraction and translation of AsciiDoc docstrings from Python modules into beautifully-formatted API documentation.
+* *Robust AST Transformation*: Utilizes `asciidoctrine`'s Lark-based Earley parsing pipeline to translate AsciiDoc structures into accurate, type-safe Docutils components.
+* *Zero Legacy Workarounds*: Features automatic resolution of description list definitions and consecutive block attributes out-of-the-box.
+
+This documentation site is itself authored in AsciiDoc, utilizing `sphinx-asciidoctrine` to parse its own source and `sphinx-autodoc2` to generate its own API reference!
+
+---
+
+== Installation & Setup
+
+Install the package alongside your documentation toolchain using `pip`:
+
+[source,bash]
+----
+pip install sphinx-asciidoctrine
+----
+
+Include the `[docs]` extra to install standard layout engines and themes (`sphinx-rtd-theme`, `sphinx-autodoc2`):
+
+[source,bash]
+----
+pip install sphinx-asciidoctrine[docs]
+----
+
+---
+
+== Quick Start
+
+To enable AsciiDoc parsing in your Sphinx project, add `sphinx_asciidoctrine` to the `extensions` list in your `conf.py`:
+
+[source,python]
+----
+# conf.py
+
+extensions = [
+    "sphinx_asciidoctrine",
+    # any other Sphinx extensions...
+]
+----
+
+Once added, any `.adoc` or `.asciidoc` files in your source directories will automatically be discovered, parsed as AsciiDoc, and built into your output site!
+
+---
+
+== Autodoc Docstring Processing
+
+The extension can automatically parse docstrings in Python modules written in AsciiDoc.
+
+To enable or disable autodoc docstring parsing globally, use the `asciidoc_process_docstrings` option:
+
+[source,python]
+----
+# conf.py
+
+# Enable or disable AsciiDoc docstring processing (default is True)
+asciidoc_process_docstrings = True
+----
+
+If you are using `sphinx-autodoc2` to document your package APIs, you can map the parser specifically for Python docstrings:
+
+[source,python]
+----
+# conf.py
+
+extensions = [
+    "sphinx_asciidoctrine",
+    "autodoc2",
+]
+
+autodoc2_packages = [
+    "../src/my_package",
+]
+
+autodoc2_docstring_parser_regexes = [
+    (r".*", "sphinx_asciidoctrine.parser"),
+]
+----
+
+---
+
+== API Reference
+
+[NOTE]
+====
+If `sphinx-autodoc2` is enabled, the complete generated package API module index is available under the `apidocs/index` namespace.
+====
+
+[toctree, %hidden]
+--
+apidocs/index
+--
