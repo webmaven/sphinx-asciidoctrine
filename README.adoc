@@ -1,4 +1,4 @@
-= Sphinx AsciiDoc Extension
+= Sphinx-AsciiDoctrine
 :toc: left
 :toclevels: 3
 :icons: font
@@ -9,7 +9,14 @@ image:https://img.shields.io/pypi/pyversions/sphinx-asciidoctrine.svg["Python Ve
 image:https://img.shields.io/github/license/webmaven/sphinx-asciidoctrine.svg["License", link="https://github.com/webmaven/sphinx-asciidoctrine/blob/main/LICENSE"]
 image:https://img.shields.io/badge/code%20style-ruff-000000.svg["Ruff", link="https://github.com/astral-sh/ruff"]
 
-A modern, highly conforming Sphinx extension providing comprehensive AsciiDoc support. Powered by the Lark-based `asciidoctrine` parser and compliant with the Eclipse AsciiDoc ASG specification.
+[.lead]
+*Sphinx-AsciiDoctrine* is a modern, highly conforming Sphinx extension providing comprehensive AsciiDoc support. Powered by the Lark-based `asciidoctrine` parser and compliant with the Eclipse AsciiDoc ASG specification.
+
+== Project Links
+
+* *GitHub Repository*: https://github.com/webmaven/sphinx-asciidoctrine
+* *PyPI Package*: https://pypi.org/project/sphinx-asciidoctrine/
+* *Official Documentation*: https://webmaven.github.io/sphinx-asciidoctrine/
 
 == Features
 
@@ -30,7 +37,7 @@ pip install sphinx-asciidoctrine
 
 == Usage
 
-Add `sphinx_asciidoctrine` to the `extensions` list in your Sphinx project's `conf.py` file:
+To use Sphinx-AsciiDoctrine, add `sphinx_asciidoctrine` to the `extensions` list in your Sphinx project's `conf.py` file:
 
 [source,python]
 ----
@@ -44,7 +51,7 @@ extensions = [
 
 [NOTE]
 ====
-By default, this extension will automatically process all Python docstrings as AsciiDoc and compile them to reStructuredText (reST) during standard autodoc build phases.
+By default, Sphinx-AsciiDoctrine will automatically process all Python docstrings as AsciiDoc and compile them to reStructuredText (reST) during standard autodoc build phases.
 ====
 
 If your project utilizes AsciiDoc for main documentation files but uses standard reST or Markdown within Python docstrings, you can easily disable automatic docstring translation by setting `asciidoc_process_docstrings` to `False` in your `conf.py`:

@@ -1,10 +1,15 @@
-= Sphinx AsciiDoctrine Documentation
+= Sphinx-AsciiDoctrine Documentation
 Michael R. Bernstein <zopemaven@gmail.com>
 v0.1.0a1
 
-Welcome to the official documentation for *Sphinx AsciiDoctrine*, a high-fidelity Sphinx extension designed to parse and compile AsciiDoc files natively within the Python and Docutils/Sphinx documentation ecosystems.
+Welcome to the official documentation for *Sphinx-AsciiDoctrine*, a high-fidelity Sphinx extension designed to parse and compile AsciiDoc files natively within the Python and Docutils/Sphinx documentation ecosystems.
 
-`sphinx-asciidoctrine` compiles your AsciiDoc documentation files into standard Docutils nodes and translates Python docstrings written in AsciiDoc directly into standard Sphinx-friendly reStructuredText on-the-fly.
+Sphinx-AsciiDoctrine compiles your AsciiDoc documentation files into standard Docutils nodes and translates Python docstrings written in AsciiDoc directly into standard Sphinx-friendly reStructuredText on-the-fly.
+
+== Project Links
+
+* *GitHub Repository*: https://github.com/webmaven/sphinx-asciidoctrine
+* *PyPI Package*: https://pypi.org/project/sphinx-asciidoctrine/
 
 ---
 
@@ -15,7 +20,7 @@ Welcome to the official documentation for *Sphinx AsciiDoctrine*, a high-fidelit
 * *Robust AST Transformation*: Utilizes `asciidoctrine`'s Lark-based Earley parsing pipeline to translate AsciiDoc structures into accurate, type-safe Docutils components.
 * *Zero Legacy Workarounds*: Features automatic resolution of description list definitions and consecutive block attributes out-of-the-box.
 
-This documentation site is itself authored in AsciiDoc, utilizing `sphinx-asciidoctrine` to parse its own source and `sphinx-autodoc2` to generate its own API reference!
+This documentation site is itself authored in AsciiDoc, utilizing *Sphinx-AsciiDoctrine* to parse its own source and `sphinx-autodoc2` to generate its own API reference!
 
 ---
 
@@ -57,7 +62,7 @@ Once added, any `.adoc` or `.asciidoc` files in your source directories will aut
 
 == Autodoc Docstring Processing
 
-The extension can automatically parse docstrings in Python modules written in AsciiDoc.
+Sphinx-AsciiDoctrine can automatically parse docstrings in Python modules written in AsciiDoc.
 
 To enable or disable autodoc docstring parsing globally, use the `asciidoc_process_docstrings` option:
 
