@@ -7,7 +7,7 @@ from docutils import nodes
 from sphinx.errors import ExtensionError
 from sphinx.parsers import Parser as SphinxParser
 
-__version__ = "0.1.0a1"
+__version__ = "0.1.0a2"
 
 
 class AsciiDocParser(SphinxParser):

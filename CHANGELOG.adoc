@@ -1,0 +1,45 @@
+= Changelog
+:toc:
+
+All notable changes to this project will be documented in this file.
+
+This project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
+
+== Unreleased
+
+== link:https://pypi.org/project/sphinx-asciidoctrine/0.1.0a2/[0.1.0a2]
+
+=== Changed
+* **Dependency Upgrades**:
+  - Bumped `asciidoctrine` dependency from `>=0.1.0a9` to `>=0.1.0a11`.
+  - Bumped `asciidocstring` dependency from `>=0.1.0a4` to `>=0.1.0a6`.
+  - Bumped `asciidoctest` test dependency from `>=0.2.0a1` to `>=0.2.0a2`.
+* **Defensive Lazy Import in `parser.py`**:
+  - Moved the `asciidocstring` import inside `Parser.parse()` with `ImportError` fallback to prevent hard crashes when the optional dependency is absent.
+* **Branding**: Renamed the extension to *Sphinx-AsciiDoctrine* in all prose documentation while keeping the package name as `sphinx-asciidoctrine`.
+
+=== Added
+* **Project Links**: Added GitHub, PyPI, and documentation links to both `README.adoc` and `docs/index.adoc`.
+* **Self-Hosting Documentation**: Created `docs/` directory with `conf.py`, `index.adoc`, and `_static/custom.css` (forest-green dark theme). Documentation is authored in AsciiDoc and parsed by Sphinx-AsciiDoctrine itself.
+* **Architecture & Design Section**: Added architecture diagram and component descriptions to the documentation.
+* **Advanced Usage Section**: Documented configurable docstring processing and error recovery behavior.
+* **GitHub Pages Deployment**: Added `build-docs` job to CI workflow using native `actions/deploy-pages@v4` for automatic documentation deployment.
+* **Community Files**: Added `LICENSE` (Apache 2.0), `CHANGELOG.adoc`, `CONTRIBUTING.adoc`, and `SECURITY.adoc`.
+
+=== Fixed
+* **GitHub Pages Deployment**: Migrated from `peaceiris/actions-gh-pages@v4` (branch-based) to native `actions/upload-pages-artifact@v3` + `actions/deploy-pages@v4` (direct workflow deployment) to resolve a configuration mismatch where the repository's Pages source was set to `workflow` mode.
+* **Version Test Resilience**: Updated `test_setup_registration` to assert against `__version__` dynamically rather than a hardcoded string.
+
+== link:https://pypi.org/project/sphinx-asciidoctrine/0.1.0a1/[0.1.0a1] - 2026-07-17
+
+=== Added
+* **Initial Release**: Full Sphinx extension scaffolding with AsciiDoc source file parsing and autodoc docstring translation.
+* **`AsciiDocParser`**: Sphinx source parser for `.adoc` and `.asciidoc` files using `asciidoctrine`.
+* **`process_docstring` Hook**: Automatic AsciiDoc-to-reST translation for `sphinx.ext.autodoc` pipelines.
+* **`sphinx_asciidoctrine.parser.Parser`**: Standalone Docutils parser for `sphinx-autodoc2` static analysis.
+* **Parallel Build Safety**: Extension declares `parallel_read_safe` and `parallel_write_safe` as `True`.
+* **Configurable Docstring Processing**: `asciidoc_process_docstrings` config value to enable/disable automatic docstring translation.
+* **Fault Tolerance**: Graceful error recovery with inline error nodes for parse failures.
+* **4-Tier Test Suite**: Unit, integration, functional, and E2E tests (13 tests total).
+* **CI Pipeline**: GitHub Actions workflow with Ruff, Mypy, and Pytest on Python 3.14.
+* **PyPI Publication**: Published as `sphinx-asciidoctrine` on PyPI.

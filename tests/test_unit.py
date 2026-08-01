@@ -15,7 +15,9 @@ def test_setup_registration() -> None:
     app = MagicMock()
     result = setup(app)
 
-    assert result["version"] == "0.1.0a1"
+    from sphinx_asciidoctrine import __version__
+
+    assert result["version"] == __version__
     assert result["parallel_read_safe"] is True
     assert result["parallel_write_safe"] is True
 

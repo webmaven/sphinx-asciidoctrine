@@ -1,0 +1,45 @@
+= Security Policy
+
+== Supported Versions
+
+[cols="1,1"]
+|===
+| Version | Supported
+
+| 0.1.x (latest alpha)
+| ✅ Yes
+|===
+
+== Reporting a Vulnerability
+
+If you discover a security vulnerability in Sphinx-AsciiDoctrine, please report it responsibly.
+
+=== How to Report
+
+*Do not open a public GitHub issue for security vulnerabilities.*
+
+Instead, please email the maintainer directly at:
+
+* *Email*: zopemaven@gmail.com
+* *Subject line*: `[SECURITY] sphinx-asciidoctrine: <brief description>`
+
+=== What to Include
+
+* A description of the vulnerability and its potential impact.
+* Steps to reproduce the issue.
+* Any suggested fixes or mitigations.
+
+=== Response Timeline
+
+* *Acknowledgement*: Within 48 hours of receipt.
+* *Assessment*: Within 1 week, we will provide an initial assessment of severity and scope.
+* *Resolution*: We aim to release a fix within 2 weeks for confirmed vulnerabilities.
+
+== Scope
+
+This security policy covers:
+
+* The `sphinx-asciidoctrine` Python package as published on https://pypi.org/project/sphinx-asciidoctrine/[PyPI].
+* The source code in the https://github.com/webmaven/sphinx-asciidoctrine[GitHub repository].
+
+Security issues in upstream dependencies (`asciidoctrine`, `asciidocstring`, `sphinx`, `docutils`) should be reported to their respective maintainers.

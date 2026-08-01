@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sphinx-asciidoctrine"
-version = "0.1.0a1"
+version = "0.1.0a2"
 authors = [
   { name = "Michael R. Bernstein", email = "zopemaven@gmail.com" },
 ]
@@ -21,8 +21,8 @@ classifiers = [
 ]
 dependencies = [
     "sphinx>=7.0",
-    "asciidoctrine>=0.1.0a9",
-    "asciidocstring>=0.1.0a4",
+    "asciidoctrine>=0.1.0a11",
+    "asciidocstring>=0.1.0a6",
 ]
 
 [project.optional-dependencies]
@@ -31,7 +31,7 @@ test = [
     "pytest-cov",
     "ruff",
     "mypy",
-    "asciidoctest>=0.2.0a1",
+    "asciidoctest>=0.2.0a2",
 ]
 docs = [
     "sphinx-rtd-theme",

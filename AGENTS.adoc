@@ -24,16 +24,31 @@ The plugin is structured as an independent, lightweight Python package:
 | Primary package entry point. Implements standard Sphinx suffix registrations, the `AsciiDocParser` class, and the `process_docstring` event hook.
 
 | `src/sphinx_asciidoctrine/parser.py`
-| Extension module supporting `sphinx-autodoc2` via a specialized `Parser` subclass.
+| Extension module supporting `sphinx-autodoc2` via a specialized `Parser` subclass with lazy-loading for `asciidocstring`.
+
+| `docs/`
+| Self-hosting Sphinx documentation directory authored in AsciiDoc (`index.adoc`, `conf.py`, `_static/custom.css`).
 
 | `tests/`
 | Comprehensive multi-tiered testing suite directory.
+
+| `LICENSE`
+| Apache 2.0 open-source license.
+
+| `CHANGELOG.adoc`
+| Project release history and version changelog adhering to Semantic Versioning.
+
+| `CONTRIBUTING.adoc`
+| Developer setup, contribution guidelines, and code style rules.
+
+| `SECURITY.adoc`
+| Security reporting policy and contact information.
 |===
 
 === Key Components
 
 ==== 1. `AsciiDocParser` (Source Parser)
-Inherits from `sphinx.parsers.Parser` (which derives from `docutils.parsers.Parser`). It translates physical `.adoc` or `.asciidoc` files into an AST using `asciidoctrine.parse_to_ast`, and then uses `DocutilsRenderer` to populate the Sphinx target document with standard Docutils nodes.
+Inherits from `sphinx.parsers.Parser` (which derives from `docutils.parsers.Parser`). It resolves the base directory from the source document, translates physical `.adoc` or `.asciidoc` files into an AST using `asciidoctrine.parse_to_ast`, and then uses `DocutilsRenderer` to populate the Sphinx target document with standard Docutils nodes.
 
 ==== 2. `process_docstring` (Autodoc Hook)
 Connected to Sphinx's `autodoc-process-docstring` event. When Sphinx compiles inline Python docstrings:
@@ -42,20 +57,20 @@ Connected to Sphinx's `autodoc-process-docstring` event. When Sphinx compiles in
 3. Translates the AsciiDoc content into standard reStructuredText (reST) in-place using the `asciidocstring` semantic compiler.
 4. Splits the reST block back into lines, updating the docstring lines list in-place so that autodoc continues processing them seamlessly.
 
-==== 3. `sphinx-autodoc2` Static Parser mapping
-To support non-import, static-analysis docstring generation (preferred by frameworks like `sphinx-autodoc2`), `sphinx_asciidoctrine.parser.Parser` overrides the standard docstring parsing workflow to compile AsciiDoc directly into Docutils target node structures.
+==== 3. `sphinx-autodoc2` Static Parser Mapping
+To support non-import, static-analysis docstring generation (preferred by frameworks like `sphinx-autodoc2`), `sphinx_asciidoctrine.parser.Parser` overrides the standard docstring parsing workflow to compile AsciiDoc directly into Docutils target node structures. It lazily imports `asciidocstring` inside `parse()` with a graceful `ImportError` warning block fallback.
 
 == Setup & Local Development
 
 The project is designed to be developed using a standalone virtual environment (`venv`) created directly inside this repository.
 
 === Installation
-To install the plugin in editable development mode alongside all unit, functional, and integration testing dependencies:
+To install the plugin in editable development mode alongside all unit, functional, integration, and documentation building dependencies:
 
 [source,bash]
 ----
 # Run from within the sphinx-asciidoctrine workspace root
-venv/bin/pip install -e ".[test]"
+venv/bin/pip install -e ".[test,docs]"
 ----
 
 == Testing Protocols

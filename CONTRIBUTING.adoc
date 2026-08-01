@@ -1,0 +1,120 @@
+= Contributing to Sphinx-AsciiDoctrine
+:toc:
+
+Thank you for your interest in contributing to Sphinx-AsciiDoctrine! This document provides guidelines for contributing to the project.
+
+== Getting Started
+
+=== Prerequisites
+
+* Python 3.14+
+* Git
+
+=== Development Setup
+
+[source,bash]
+----
+# Clone the repository
+git clone https://github.com/webmaven/sphinx-asciidoctrine.git
+cd sphinx-asciidoctrine
+
+# Create and activate a virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# Install in development mode with all extras
+pip install -e ".[test,docs]"
+----
+
+== Development Workflow
+
+=== Running Tests
+
+The project uses a layered testing strategy:
+
+[source,bash]
+----
+# Run the full test suite
+venv/bin/pytest -v
+
+# Run with coverage
+venv/bin/pytest --cov=src --cov-report=term-missing
+----
+
+=== Linting & Type Checking
+
+[source,bash]
+----
+# Ruff linter
+venv/bin/ruff check .
+
+# Ruff formatter check
+venv/bin/ruff format --check .
+
+# Mypy strict type checking
+venv/bin/mypy src
+----
+
+=== Building Documentation
+
+The documentation is self-hosting — it uses Sphinx-AsciiDoctrine to parse its own `.adoc` source files:
+
+[source,bash]
+----
+venv/bin/sphinx-build -a -E -b html docs docs/_build/html
+----
+
+The compiled output will be in `docs/_build/html/`.
+
+== Project Structure
+
+[source,text]
+----
+sphinx-asciidoctrine/
+├── src/
+│   └── sphinx_asciidoctrine/
+│       ├── __init__.py      # Sphinx extension entry point & AsciiDocParser
+│       ├── parser.py        # Docutils parser for sphinx-autodoc2
+│       └── py.typed         # PEP 561 type marker
+├── tests/
+│   ├── test_unit.py         # Unit tests
+│   ├── test_integration.py  # Integration tests
+│   ├── test_functional.py   # Functional build tests
+│   └── test_e2e.py          # End-to-end CLI tests
+├── docs/                    # Self-hosting Sphinx documentation
+├── pyproject.toml           # Build configuration
+└── README.adoc              # Project README
+----
+
+== Submitting Changes
+
+1. Fork the repository and create a feature branch.
+2. Make your changes, ensuring all tests pass.
+3. Run the full verification suite before submitting:
++
+[source,bash]
+----
+venv/bin/ruff check . && venv/bin/ruff format --check .
+venv/bin/mypy src
+venv/bin/pytest -v
+venv/bin/sphinx-build -a -E -b html docs docs/_build/html
+----
+4. Open a Pull Request with a clear description of your changes.
+
+== Code Style
+
+* Follow PEP 8 conventions, enforced by Ruff.
+* Use type annotations on all public functions and methods.
+* Write docstrings in AsciiDoc format (we eat our own cooking).
+
+== Reporting Issues
+
+Please use the https://github.com/webmaven/sphinx-asciidoctrine/issues[GitHub Issues] page to report bugs or request features. Include:
+
+* A clear description of the problem or enhancement.
+* Steps to reproduce (for bugs).
+* Your Python version and relevant dependency versions.
+
+== License
+
+By contributing, you agree that your contributions will be licensed under the same link:LICENSE[Apache License 2.0] that covers this project.

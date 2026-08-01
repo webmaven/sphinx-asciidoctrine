@@ -1,6 +1,6 @@
 = Sphinx-AsciiDoctrine Documentation
 Michael R. Bernstein <zopemaven@gmail.com>
-v0.1.0a1
+v0.1.0a2
 
 Welcome to the official documentation for *Sphinx-AsciiDoctrine*, a high-fidelity Sphinx extension designed to parse and compile AsciiDoc files natively within the Python and Docutils/Sphinx documentation ecosystems.
 
@@ -93,6 +93,62 @@ autodoc2_docstring_parser_regexes = [
     (r".*", "sphinx_asciidoctrine.parser"),
 ]
 ----
+
+== Architecture & Design
+
+Sphinx-AsciiDoctrine acts as a bridge adapter connecting the Sphinx/Docutils documentation building ecosystem with `asciidoctrine` and `asciidocstring`.
+
+[source,text]
+....
++-----------------------------+
+|    Sphinx / Docutils        |
++--------------+--------------+
+               |
+        +------+------+
+        |             |
+        v             v
++---------------+  +--------------------------+
+|AsciiDocParser |  | process_docstring Hook   |
+| (.adoc files) |  | (autodoc / autodoc2)     |
++-------+-------+  +------------+-------------+
+        |                       |
+        v                       v
++---------------+  +--------------------------+
+|asciidoctrine  |  | asciidocstring           |
+| (Lark Parser) |  | (AsciiDoc -> reST)       |
++-------+-------+  +------------+-------------+
+        |                       |
+        v                       v
++---------------+  +--------------------------+
+|Docutils Node  |  | reST Text / RstParser    |
+| Tree          |  |                          |
++---------------+  +--------------------------+
+....
+
+* **`AsciiDocParser`**: Implements Sphinx's `Parser` class for `.adoc` and `.asciidoc` files. It parses raw AsciiDoc source using `asciidoctrine.lark_parser.parse_to_ast()` and renders standard Docutils nodes directly into the target `document`.
+* **`process_docstring`**: Hook attached to Sphinx's `autodoc-process-docstring` event. Translates AsciiDoc docstrings on-the-fly into reStructuredText (reST) for standard autodoc processing.
+* **`sphinx_asciidoctrine.parser.Parser`**: A standalone `docutils.parsers.Parser` subclass for static analysis docstring pipelines like `sphinx-autodoc2`.
+
+---
+
+== Advanced Usage & Configuration
+
+=== Configurable Docstring Processing
+
+By default, docstring translation is automatically enabled. You can control this in your `conf.py`:
+
+[source,python]
+----
+# Enable/disable automatic AsciiDoc docstring processing (default: True)
+asciidoc_process_docstrings = True
+----
+
+=== Error Recovery & Fault Tolerance
+
+If an error occurs while parsing an AsciiDoc document or docstring, Sphinx-AsciiDoctrine catches the exception gracefully:
+
+* **Document Files**: Appends an error node block inline in the document detailing the parse failure without halting the `sphinx-build` run.
+* **Docstrings**: Appends a `.. error::` warning block to the docstring text so docstring errors can be visually diagnosed in generated output.
 
 ---
 
