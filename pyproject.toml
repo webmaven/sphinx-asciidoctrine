@@ -21,8 +21,8 @@ classifiers = [
 ]
 dependencies = [
     "sphinx>=7.0",
-    "asciidoctrine>=0.1.0a11",
-    "asciidocstring>=0.1.0a6",
+    "asciidoctrine>=0.2.0a8",
+    "asciidocstring>=0.1.0a11",
 ]
 
 [project.optional-dependencies]
@@ -31,7 +31,7 @@ test = [
     "pytest-cov",
     "ruff",
     "mypy",
-    "asciidoctest>=0.2.0a2",
+    "asciidoctest>=0.2.0a6",
 ]
 docs = [
     "sphinx-rtd-theme",

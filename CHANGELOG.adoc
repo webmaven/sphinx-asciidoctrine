@@ -7,6 +7,13 @@ This project adheres to https://semver.org/spec/v2.0.0.html[Semantic Versioning]
 
 == Unreleased
 
+=== Changed
+* **Dependency Upgrades**:
+  - Bumped `asciidoctrine` dependency from `>=0.1.0a11` to `>=0.2.0a8`.
+  - Bumped `asciidocstring` dependency from `>=0.1.0a6` to `>=0.1.0a11`.
+  - Bumped `asciidoctest` test dependency from `>=0.2.0a2` to `>=0.2.0a6`.
+  - Verified the full test suite, `mypy --strict`, and `ruff` pass cleanly against the new versions; no compatibility shims were needed.
+
 == link:https://pypi.org/project/sphinx-asciidoctrine/0.1.0a2/[0.1.0a2]
 
 === Changed
